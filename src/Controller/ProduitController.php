@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Entity\Produit;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,5 +29,60 @@ class ProduitController extends AbstractController
         return $this->render('produit/index.html.twig', [
             'produit' => $produit
         ]);
+    }
+
+    #[Route('/produit/{id}/add-to-cart', name: 'app_produit_add_to_cart', methods: ['POST'])]
+    public function addToCart(
+        int $id,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $client = $user->getClient();
+
+        if (!$client) {
+            throw $this->createNotFoundException(
+                'Client introuvable.'
+            );
+        }
+
+        $produit = $entityManager
+            ->getRepository(Produit::class)
+            ->find($id);
+
+        if (!$produit instanceof Produit) {
+            throw $this->createNotFoundException(
+                'Produit introuvable.'
+            );
+        }
+
+        $panier = null;
+
+        foreach ($client->getPaniers() as $panierClient) {
+            if ($panierClient->getProduit() === $produit) {
+                $panier = $panierClient;
+                break;
+            }
+        }
+
+        if ($panier) {
+            $panier->setQte($panier->getQte() + 1);
+        } else {
+            $panier = new Panier();
+
+            $panier->setClient($client);
+            $panier->setProduit($produit);
+            $panier->setQte(1);
+
+            $entityManager->persist($panier);
+        }
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_panier');
     }
 }

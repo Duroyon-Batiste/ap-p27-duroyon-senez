@@ -68,9 +68,11 @@
 
             <div class="produit-actions">
 
-                <button type="button">
-                    Ajouter au panier
-                </button>
+                <form method="post" action="{{ path('app_produit_add_to_cart', {'id': produit.id}) }}">
+                    <button type="submit">
+                        Ajouter au panier
+                    </button>
+                </form>
 
             </div>
 
