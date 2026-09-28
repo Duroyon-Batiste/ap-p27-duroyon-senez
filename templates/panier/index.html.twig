@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Mon panier
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <h1>Mon panier</h1>
+
+    {% if paniers is empty %}
+
+        <p>Votre panier est vide.</p>
+
+    {% else %}
+
+        <div class="panier">
+
+            {% for panier in paniers %}
+
+                {% set produit = panier.produit %}
+
+                <div class="article-panier">
+
+                    <div class="article-informations">
+
+                        <h2>
+                            {{ produit.ref }}
+                        </h2>
+
+                        <p>
+                            {{ produit.description }}
+                        </p>
+
+                        <p>
+                            Prix unitaire :
+                            <strong>{{ produit.prix }} €</strong>
+                        </p>
+
+                        <p>
+                            Quantité :
+                            <strong>{{ panier.qte }}</strong>
+                        </p>
+
+                        <p>
+                            Total :
+                            <strong>
+                                {{ (panier.qte * produit.prix)|number_format(2, ',', ' ') }} €
+                            </strong>
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+            {% endfor %}
+
+            <div class="panier-total">
+
+                <h2>
+                    Total du panier :
+                    {{ total|number_format(2, ',', ' ') }} €
+                </h2>
+
+                <button type="button">
+                    Passer la commande
+                </button>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
