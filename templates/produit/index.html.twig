@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ produit.ref }}
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="produit">
+
+        {# Image du produit #}
+        <div class="produit-image">
+
+            {% if produit.photos|length > 0 %}
+
+                {# Si une photo existe, on affiche la première #}
+                <img
+                    src="{{ asset(produit.photos|first.chemin) }}"
+                    alt="{{ produit.description }}"
+                >
+
+            {% else %}
+
+                {# Aucun photo : emplacement de remplacement #}
+                <div class="produit-image-placeholder">
+                    <div class="placeholder-icon">
+                        🛍️
+                    </div>
+
+                    <p>Aucune image disponible</p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        {# Informations du produit #}
+        <div class="produit-informations">
+
+            <p class="produit-reference">
+                Référence : {{ produit.ref }}
+            </p>
+
+            <h1>
+                {{ produit.description }}
+            </h1>
+
+            <p class="produit-prix">
+                {{ produit.prix }} €
+            </p>
+
+            <div class="produit-details">
+
+                <p>
+                    <strong>Sport :</strong>
+                    {{ produit.sport.nom }}
+                </p>
+
+                <p>
+                    <strong>Fournisseur :</strong>
+                    {{ produit.fournisseur.nom }}
+                </p>
+
+            </div>
+
+            <div class="produit-actions">
+
+                <button type="button">
+                    Ajouter au panier
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
