@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <h1>Nos produits</h1>
+
+    {% if produits is empty %}
+
+        <p>Aucun produit n'est actuellement disponible.</p>
+
+    {% else %}
+
+        <div class="produits">
+
+            {% for produit in produits %}
+
+                <a
+                    href="{{ path('app_produit', {'id': produit.id}) }}"
+                    class="produit-card"
+                >
+
+                    <div class="produit-image">
+
+                        {% if produit.photos|length > 0 %}
+
+                            {% set photo = produit.photos|first %}
+
+                            <img
+                                src="{{ asset(photo.chemin) }}"
+                                alt="{{ produit.description }}"
+                            >
+
+                        {% else %}
+
+                            <div class="produit-image-placeholder">
+                                <span>🛍️</span>
+                                <p>Aucune image disponible</p>
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="produit-informations">
+
+                        <h2>
+                            {{ produit.description }}
+                        </h2>
+
+                        <p class="produit-prix">
+                            {{ produit.prix|number_format(2, ',', ' ') }} €
+                        </p>
+
+                    </div>
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
