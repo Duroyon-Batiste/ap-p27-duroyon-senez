@@ -27,22 +27,37 @@
                     <div class="article-informations">
 
                         <h2>
-                            {{ produit.ref }}
+                            <a href="{{ path('app_produit', {'id': produit.id}) }}">
+                                {{ produit.description }}
+                            </a>
                         </h2>
-
-                        <p>
-                            {{ produit.description }}
-                        </p>
 
                         <p>
                             Prix unitaire :
                             <strong>{{ produit.prix }} €</strong>
                         </p>
 
-                        <p>
-                            Quantité :
-                            <strong>{{ panier.qte }}</strong>
-                        </p>
+                        <div class="quantite">
+
+                            <span>Quantité :</span>
+
+                            <form method="post" action="{{ path('app_panier_remove', {'id': panier.id}) }}">
+                                <button type="submit">
+                                    −
+                                </button>
+                            </form>
+
+                            <strong>
+                                {{ panier.qte }}
+                            </strong>
+
+                            <form method="post" action="{{ path('app_panier_add', {'id': panier.id}) }}">
+                                <button type="submit">
+                                    +
+                                </button>
+                            </form>
+
+                        </div>
 
                         <p>
                             Total :

@@ -70,7 +70,7 @@ class ProduitController extends AbstractController
         }
 
         if ($panier) {
-            $panier->setQte($panier->getQte() + 1);
+            return $this->redirectToRoute('app_panier');
         } else {
             $panier = new Panier();
 
