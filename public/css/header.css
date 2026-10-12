@@ -1,0 +1,178 @@
+/* ==============================
+   HEADER
+============================== */
+
+.site-header {
+    position: relative;
+    z-index: 100;
+    background: #ffffff;
+    border-bottom: 1px solid #e8edf2;
+    box-shadow: 0 3px 15px rgba(20, 40, 60, 0.04);
+}
+
+.header-container {
+    width: min(1200px, 92%);
+    min-height: 82px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.site-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #172b4d;
+    text-decoration: none;
+    font-size: 1.45rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.logo-icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #2457d6;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.logo-accent {
+    color: #2457d6;
+}
+
+.main-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 28px;
+}
+
+.main-navigation a,
+.footer-column a {
+    color: #526176;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.main-navigation a:hover,
+.footer-column a:hover {
+    color: #2457d6;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.header-user {
+    color: #526176;
+    font-size: 0.9rem;
+}
+
+.btn-header {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 19px;
+    border-radius: 9px;
+    background: #2457d6;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-header:hover {
+    background: #1945b5;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* Conteneur du menu utilisateur */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+/* Bouton de la photo de profil */
+.user-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Photo de profil */
+.user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    transition: border-color 0.2s;
+}
+
+.user-menu-toggle:hover .user-avatar {
+    border-color: #333;
+}
+
+/* Menu déroulant */
+.user-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 190px;
+    padding: 8px 0;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+}
+
+/* Liens du menu */
+.user-dropdown a {
+    display: block;
+    padding: 11px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.user-dropdown a:hover {
+    background: #f3f3f3;
+}
+
+/* Séparation avant la déconnexion */
+.user-dropdown hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 6px 0;
+}
+
+/* Lien de déconnexion */
+.user-dropdown .logout-link {
+    color: #dc3545;
+}
+
+/* L'attribut hidden doit masquer le menu */
+.user-dropdown[hidden] {
+    display: none;
+}
