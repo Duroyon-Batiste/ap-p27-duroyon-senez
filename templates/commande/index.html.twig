@@ -1,0 +1,368 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suivi de mes commandes{% endblock %}
+
+{% block body %}
+
+<div class="container suivi-commandes">
+
+    <header class="suivi-entete">
+        <p class="suivi-surtitre">MON ESPACE CLIENT</p>
+        <h1>Suivi de mes commandes</h1>
+        <p>Retrouvez vos commandes, leur contenu et l'évolution de leur statut.</p>
+    </header>
+
+    {# COMMANDES EN COURS #}
+    <section class="section-commandes">
+
+        <div class="section-titre">
+            <div>
+                <h2>Mes commandes en cours</h2>
+                <p>Suivez l'avancement de vos commandes.</p>
+            </div>
+
+            <span class="compteur-commandes">
+                {{ commandesEnCours|length }}
+            </span>
+        </div>
+
+        {% if commandesEnCours is empty %}
+
+            <div class="commandes-vides">
+                <span class="commandes-vides-icone">📦</span>
+                <h3>Aucune commande en cours</h3>
+                <p>Vos prochaines commandes apparaîtront ici.</p>
+                <a href="{{ path('app_accueil') }}" class="bouton-lien">
+                    Découvrir les produits
+                </a>
+            </div>
+
+        {% else %}
+
+            {% for donnees in commandesEnCours %}
+
+                {% set commande = donnees.commande %}
+                {% set dernierEtat = donnees.dernierEtat %}
+
+                <article class="commande-carte">
+
+                    <div class="commande-entete">
+
+                        <div>
+                            <p class="commande-reference">
+                                COMMANDE #{{ commande.id }}
+                            </p>
+
+                            <h3>
+                                Commande du
+                                {{ commande.date|date('d/m/Y') }}
+                            </h3>
+
+                            <p class="commande-date">
+                                Passée le {{ commande.date|date('d/m/Y à H:i') }}
+                            </p>
+                        </div>
+
+                        <div class="commande-statut">
+                            <span class="statut-point"></span>
+                            {{ dernierEtat ? dernierEtat.etat.nom : 'En attente de statut' }}
+                        </div>
+
+                    </div>
+
+                    {# CONTENU DE LA COMMANDE #}
+                    <div class="commande-contenu">
+
+                        <h4>Contenu de la commande</h4>
+
+                        {% if commande.produitCommandes is empty %}
+
+                            <p>Aucun produit enregistré pour cette commande.</p>
+
+                        {% else %}
+
+                            {% for produitCommande in commande.produitCommandes %}
+
+                                {% set produit = produitCommande.produit %}
+
+                                <div class="ligne-produit">
+
+                                    <div class="ligne-produit-image">
+                                        {% if produit and produit.photos|length > 0 %}
+                                            {% set photo = produit.photos|first %}
+                                            <img
+                                                src="{{ asset(photo.chemin) }}"
+                                                alt="{{ produit.description }}"
+                                            >
+                                        {% else %}
+                                            <span>📦</span>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="ligne-produit-infos">
+                                        <strong>
+                                            {{ produit ? produit.description : 'Produit indisponible' }}
+                                        </strong>
+
+                                        <p>
+                                            Quantité :
+                                            {{ produitCommande.qte }}
+                                        </p>
+                                    </div>
+
+                                    <div class="ligne-produit-prix">
+                                        {% if produit %}
+                                            <span>
+                                                {{ (produit.prix)|number_format(2, ',', ' ') }} €
+                                                / unité
+                                            </span>
+
+                                            <strong>
+                                                {{ (produitCommande.qte * produit.prix)|number_format(2, ',', ' ') }} €
+                                            </strong>
+                                        {% else %}
+                                            <span>Prix indisponible</span>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    </div>
+
+                    {# INFORMATIONS DE LIVRAISON ET TOTAL #}
+                    <div class="commande-pied">
+
+                        <div class="commande-livraison">
+                            <span class="livraison-icone">📍</span>
+
+                            <div>
+                                <strong>Adresse de livraison</strong>
+                                <p>
+                                    {{ commande.adresseLivraison ?: 'Adresse non renseignée' }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="commande-total">
+                            <span>Total de la commande</span>
+                            <strong>
+                                {{ donnees.total|number_format(2, ',', ' ') }} €
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    {# HISTORIQUE DES ÉTATS #}
+                    <details class="historique-commande" open>
+
+                        <summary>
+                            <span>Historique des états</span>
+                            <span class="historique-compteur">
+                                {{ donnees.historiqueEtats|length }}
+                                étape(s)
+                            </span>
+                        </summary>
+
+                        {% if donnees.historiqueEtats is empty %}
+
+                            <p class="historique-vide">
+                                Aucun état n'a encore été enregistré pour cette commande.
+                            </p>
+
+                        {% else %}
+
+                            <div class="historique-liste">
+
+                                {% for historiqueEtat in donnees.historiqueEtats %}
+
+                                    <div class="historique-etape">
+
+                                        <div class="historique-repere">
+                                            <span></span>
+                                        </div>
+
+                                        <div class="historique-infos">
+                                            <strong>
+                                                {{ historiqueEtat.etat.nom }}
+                                            </strong>
+
+                                            {% if historiqueEtat.etat.description %}
+                                                <p>
+                                                    {{ historiqueEtat.etat.description }}
+                                                </p>
+                                            {% endif %}
+
+                                            <time>
+                                                {{ historiqueEtat.date|date('d/m/Y à H:i') }}
+                                            </time>
+                                        </div>
+
+                                        {% if loop.first %}
+                                            <span class="historique-actuel">
+                                                Dernier état
+                                            </span>
+                                        {% endif %}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% endif %}
+
+                    </details>
+
+                </article>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </section>
+
+
+    {# COMMANDES PASSÉES #}
+    <section class="section-commandes section-commandes-passees">
+
+        <div class="section-titre">
+            <div>
+                <h2>Mes commandes passées</h2>
+                <p>Retrouvez les commandes terminées et annulées.</p>
+            </div>
+
+            <span class="compteur-commandes compteur-passe">
+                {{ commandesPassees|length }}
+            </span>
+        </div>
+
+        {% if commandesPassees is empty %}
+
+            <div class="commandes-vides commandes-vides-compact">
+                <h3>Aucune commande passée</h3>
+                <p>Vos commandes terminées apparaîtront ici.</p>
+            </div>
+
+        {% else %}
+
+            {% for donnees in commandesPassees %}
+
+                {% set commande = donnees.commande %}
+                {% set dernierEtat = donnees.dernierEtat %}
+
+                <details class="commande-passee">
+
+                    <summary class="commande-passee-entete">
+
+                        <div class="commande-passee-identite">
+                            <span class="commande-passee-icone">✓</span>
+
+                            <div>
+                                <strong>Commande #{{ commande.id }}</strong>
+                                <p>
+                                    {{ commande.date|date('d/m/Y') }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="commande-passee-resume">
+                            <span class="statut-termine">
+                                {{ dernierEtat ? dernierEtat.etat.nom : 'Terminée' }}
+                            </span>
+
+                            <strong>
+                                {{ donnees.total|number_format(2, ',', ' ') }} €
+                            </strong>
+                        </div>
+
+                        <span class="fleche-details">⌄</span>
+
+                    </summary>
+
+                    <div class="commande-passee-details">
+
+                        <h4>Produits commandés</h4>
+
+                        {% for produitCommande in commande.produitCommandes %}
+
+                            {% set produit = produitCommande.produit %}
+
+                            <div class="ligne-produit ligne-produit-passe">
+
+                                <div class="ligne-produit-image">
+                                    {% if produit and produit.photos|length > 0 %}
+                                        {% set photo = produit.photos|first %}
+                                        <img
+                                            src="{{ asset(photo.chemin) }}"
+                                            alt="{{ produit.description }}"
+                                        >
+                                    {% else %}
+                                        <span>📦</span>
+                                    {% endif %}
+                                </div>
+
+                                <div class="ligne-produit-infos">
+                                    <strong>
+                                        {{ produit ? produit.description : 'Produit indisponible' }}
+                                    </strong>
+                                    <p>Quantité : {{ produitCommande.qte }}</p>
+                                </div>
+
+                                <div class="ligne-produit-prix">
+                                    {% if produit %}
+                                        <strong>
+                                            {{ (produitCommande.qte * produit.prix)|number_format(2, ',', ' ') }} €
+                                        </strong>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                        {% else %}
+
+                            <p>Aucun produit enregistré pour cette commande.</p>
+
+                        {% endfor %}
+
+                        <div class="historique-passe">
+                            <h4>Historique des états</h4>
+
+                            {% for historiqueEtat in donnees.historiqueEtats %}
+                                <div class="historique-passe-ligne">
+                                    <span>
+                                        {{ historiqueEtat.etat.nom }}
+                                    </span>
+
+                                    <time>
+                                        {{ historiqueEtat.date|date('d/m/Y à H:i') }}
+                                    </time>
+                                </div>
+                            {% else %}
+                                <p>Aucun historique disponible.</p>
+                            {% endfor %}
+                        </div>
+
+                        {% if commande.adresseLivraison %}
+                            <p class="adresse-passee">
+                                <strong>Adresse de livraison :</strong>
+                                {{ commande.adresseLivraison }}
+                            </p>
+                        {% endif %}
+
+                    </div>
+
+                </details>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+{% endblock %}
