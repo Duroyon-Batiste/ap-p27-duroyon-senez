@@ -21,48 +21,99 @@ final class RegistrationController extends AbstractController
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher
     ): Response {
-        // Création du formulaire
         $form = $this->createForm(RegistrationType::class);
+
         $form->handleRequest($request);
 
-        // Vérification de l'envoi et de la validité du formulaire
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+
+            /*
+             * DEBUG TEMPORAIRE
+             *
+             * Si le formulaire n'est pas valide,
+             * Symfony affichera toutes les erreurs.
+             */
+            if (!$form->isValid()) {
+                dd(
+                    $form->getErrors(true, true)
+                );
+            }
+
             $data = $form->getData();
 
-            // Vérification si l'adresse e-mail existe déjà
+            /*
+             * Vérification de l'adresse e-mail
+             */
             $utilisateurExistant = $entityManager
                 ->getRepository(User::class)
-                ->findOneBy(['email' => $data['email']]);
+                ->findOneBy([
+                    'email' => $data['email'],
+                ]);
 
             if ($utilisateurExistant) {
-                // Affichage d'une erreur si l'e-mail est déjà utilisé
-                $form->get('email')->addError(
-                    new FormError(
-                        'Cette adresse e-mail est déjà utilisée.'
-                    )
-                );
+
+                $form
+                    ->get('email')
+                    ->addError(
+                        new FormError(
+                            'Cette adresse e-mail est déjà utilisée.'
+                        )
+                    );
+
             } else {
-                // Création du compte utilisateur
+
+                /*
+                 * Création du User
+                 */
                 $user = new User();
-                $user->setEmail($data['email']);
-                $user->setPassword(
-                    $passwordHasher->hashPassword(
-                        $user,
-                        $data['password']
-                    )
+
+                $user->setEmail(
+                    $data['email']
                 );
 
-                // Génération du code client : CLI + 8 chiffres
-                $dernierCode = $entityManager->createQuery(
-                    'SELECT MAX(c.code) FROM App\Entity\Client c'
-                )->getSingleScalarResult();
+                $passwordHash = $passwordHasher->hashPassword(
+                    $user,
+                    $data['password']
+                );
 
+                $user->setPassword(
+                    $passwordHash
+                );
+
+
+                /*
+                 * Recherche du dernier code client
+                 */
+                $dernierCode = $entityManager
+                    ->createQuery(
+                        'SELECT MAX(c.code)
+                         FROM App\Entity\Client c'
+                    )
+                    ->getSingleScalarResult();
+
+
+                /*
+                 * Génération du prochain numéro client
+                 */
                 if ($dernierCode) {
-                    $numero = (int) substr($dernierCode, 3) + 1;
+
+                    $numero = (int) substr(
+                        $dernierCode,
+                        3
+                    );
+
+                    $numero++;
+
                 } else {
+
                     $numero = 1;
                 }
 
+
+                /*
+                 * Exemple :
+                 * CLI00000001
+                 */
                 $codeClient = 'CLI' . str_pad(
                     (string) $numero,
                     8,
@@ -70,36 +121,83 @@ final class RegistrationController extends AbstractController
                     STR_PAD_LEFT
                 );
 
-                // Création de la fiche client
+
+                /*
+                 * Création du Client
+                 */
                 $client = new Client();
-                $client->setCode($codeClient);
-                $client->setNom($data['nom']);
-                $client->setPrenom($data['prenom']);
-                $client->setAdresse($data['adresse']);
-                $client->setTelephone($data['telephone']);
-                $client->setDateNaissance($data['dateNaissance']);
 
-                // Association du compte utilisateur et du client
-                $client->setMail($user);
-
-                // Enregistrement en base de données
-                $entityManager->persist($user);
-                $entityManager->persist($client);
-                $entityManager->flush();
-
-                // Message de confirmation
-                $this->addFlash(
-                    'success',
-                    'Inscription réussie !'
+                $client->setCode(
+                    $codeClient
                 );
 
-                return $this->redirectToRoute('app_registration');
+                $client->setNom(
+                    $data['nom']
+                );
+
+                $client->setPrenom(
+                    $data['prenom']
+                );
+
+                $client->setAdresse(
+                    $data['adresse']
+                );
+
+                $client->setTelephone(
+                    $data['telephone']
+                );
+
+                $client->setDateNaissance(
+                    $data['dateNaissance']
+                );
+
+
+                /*
+                 * Association Client -> User
+                 */
+                $client->setMail(
+                    $user
+                );
+
+
+                /*
+                 * Enregistrement en base
+                 */
+                $entityManager->persist(
+                    $user
+                );
+
+                $entityManager->persist(
+                    $client
+                );
+
+                $entityManager->flush();
+
+
+                /*
+                 * Message de confirmation
+                 */
+                $this->addFlash(
+                    'success',
+                    'Votre compte a été créé avec succès.'
+                );
+
+
+                /*
+                 * Redirection vers la connexion
+                 */
+                return $this->redirectToRoute(
+                    'app_login'
+                );
             }
         }
 
-        // Affichage du formulaire
-        return $this->render('registration/index.html.twig', [
-            'form' => $form->createView(),
-        ]);
+
+        return $this->render(
+            'registration/index.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 }

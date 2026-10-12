@@ -9,43 +9,139 @@
     <div class="account-card">
 
         <div class="account-header">
-            <div class="account-avatar">
-                {{ user.email|first|upper }}
-            </div>
 
             <div>
                 <h1>Mon compte</h1>
-                <p>Gérez les informations de votre compte.</p>
+
+                {% if client %}
+                    <p>
+                        {{ client.prenom }} {{ client.nom }}
+                    </p>
+                {% else %}
+                    <p>
+                        Gérez les informations de votre compte.
+                    </p>
+                {% endif %}
             </div>
+
         </div>
+
 
         <div class="account-content">
 
-            <h2>Informations du compte</h2>
+            <h2>Informations personnelles</h2>
 
             <div class="account-info">
 
-                <div class="info-item">
-                    <span class="info-label">
-                        Adresse e-mail
-                    </span>
+                {% if client %}
 
-                    <span class="info-value">
-                        {{ user.email }}
-                    </span>
-                </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            Code client
+                        </span>
+
+                        <span class="info-value">
+                            {{ client.code }}
+                        </span>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span class="info-label">
+                            Nom
+                        </span>
+
+                        <span class="info-value">
+                            {{ client.nom }}
+                        </span>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span class="info-label">
+                            Prénom
+                        </span>
+
+                        <span class="info-value">
+                            {{ client.prenom }}
+                        </span>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span class="info-label">
+                            Adresse e-mail
+                        </span>
+
+                        <span class="info-value">
+                            {{ user.email }}
+                        </span>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span class="info-label">
+                            Téléphone
+                        </span>
+
+                        <span class="info-value">
+                            {{ client.telephone }}
+                        </span>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span class="info-label">
+                            Adresse
+                        </span>
+
+                        <span class="info-value">
+                            {{ client.adresse }}
+                        </span>
+                    </div>
+
+
+                    <div class="info-item">
+                        <span class="info-label">
+                            Date de naissance
+                        </span>
+
+                        <span class="info-value">
+                            {{ client.dateNaissance|date('d/m/Y') }}
+                        </span>
+                    </div>
+
+                {% else %}
+
+                    <div class="alert-error">
+                        Aucune fiche client n'est associée à ce compte.
+                    </div>
+
+                {% endif %}
 
             </div>
 
         </div>
 
+
         <div class="account-actions">
+
+            {# La route sera ajoutée lorsque la page commandes sera disponible #}
+            <a
+                href="#"
+                class="btn-orders"
+            >
+                Mes commandes
+            </a>
+
+
             <a
                 href="{{ path('app_logout') }}"
                 class="btn-logout"
             >
                 Se déconnecter
             </a>
+
         </div>
 
     </div>

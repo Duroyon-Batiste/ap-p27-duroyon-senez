@@ -29,31 +29,28 @@ a:hover {
 
 
 /* ========================================
-   PAGE DE CONNEXION
+   PAGE DE CONNEXION / INSCRIPTION
 ======================================== */
 
 .auth-page {
     min-height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 30px 20px;
 }
 
 .auth-card {
     width: 100%;
     max-width: 430px;
-
     background: #ffffff;
-
     padding: 40px;
-
     border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
 
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.08);
+.registration-card {
+    max-width: 550px;
 }
 
 .auth-header {
@@ -92,22 +89,16 @@ a:hover {
 .form-group label {
     font-size: 14px;
     font-weight: 600;
-
     color: #374151;
 }
 
 .form-group input {
     width: 100%;
-
     padding: 13px 14px;
-
     font-size: 15px;
-
     border: 1px solid #d1d5db;
     border-radius: 8px;
-
     background: #ffffff;
-
     outline: none;
 
     transition:
@@ -121,9 +112,27 @@ a:hover {
 
 .form-group input:focus {
     border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
 
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.12);
+.form-group input[type="date"] {
+    font-family: inherit;
+}
+
+.form-group ul {
+    list-style: none;
+    margin-top: 5px;
+    padding: 0;
+    color: #dc2626;
+    font-size: 13px;
+}
+
+.password-help {
+    display: block;
+    margin-top: 2px;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
 }
 
 
@@ -133,7 +142,6 @@ a:hover {
 
 .btn-primary {
     width: 100%;
-
     padding: 13px 20px;
 
     background: #2563eb;
@@ -167,7 +175,6 @@ a:hover {
 
 .alert-error {
     padding: 12px 14px;
-
     margin-bottom: 20px;
 
     background: #fef2f2;
@@ -181,7 +188,7 @@ a:hover {
 
 
 /* ========================================
-   LIEN INSCRIPTION
+   LIEN INSCRIPTION / CONNEXION
 ======================================== */
 
 .auth-footer {
@@ -212,70 +219,51 @@ a:hover {
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
-    padding: 30px 20px;
+    padding: 50px 20px;
 }
 
 .account-card {
     width: 100%;
-    max-width: 650px;
+    max-width: 800px;
 
     background: #ffffff;
 
     border-radius: 16px;
 
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 
     overflow: hidden;
 }
 
-.account-header {
-    display: flex;
-    align-items: center;
-    gap: 18px;
 
+/* ========================================
+   EN-TÊTE DU COMPTE
+======================================== */
+
+.account-header {
     padding: 30px;
 
     border-bottom: 1px solid #e5e7eb;
 }
 
-.account-avatar {
-    width: 60px;
-    height: 60px;
-
-    flex-shrink: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background: #2563eb;
-    color: #ffffff;
-
-    border-radius: 50%;
-
-    font-size: 24px;
-    font-weight: bold;
-}
-
 .account-header h1 {
-    font-size: 26px;
+    font-size: 28px;
 
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 
     color: #111827;
 }
 
 .account-header p {
     color: #6b7280;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 
 /* ========================================
-   INFORMATIONS DU COMPTE
+   CONTENU DU COMPTE
 ======================================== */
 
 .account-content {
@@ -283,12 +271,17 @@ a:hover {
 }
 
 .account-content h2 {
-    font-size: 18px;
+    font-size: 19px;
 
     margin-bottom: 20px;
 
     color: #111827;
 }
+
+
+/* ========================================
+   INFORMATIONS PERSONNELLES
+======================================== */
 
 .account-info {
     border: 1px solid #e5e7eb;
@@ -305,7 +298,13 @@ a:hover {
 
     gap: 20px;
 
-    padding: 18px;
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info-item:last-child {
+    border-bottom: none;
 }
 
 .info-label {
@@ -321,6 +320,8 @@ a:hover {
     font-size: 14px;
     font-weight: 600;
 
+    text-align: right;
+
     word-break: break-word;
 }
 
@@ -331,7 +332,10 @@ a:hover {
 
 .account-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
 
     padding: 20px 30px;
 
@@ -339,6 +343,45 @@ a:hover {
 
     border-top: 1px solid #e5e7eb;
 }
+
+
+/* ========================================
+   BOUTON MES COMMANDES
+======================================== */
+
+.btn-orders {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    background: #16a34a;
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease;
+}
+
+.btn-orders:hover {
+    background: #15803d;
+    color: #ffffff;
+
+    text-decoration: none;
+}
+
+.btn-orders:active {
+    transform: scale(0.98);
+}
+
+
+/* ========================================
+   BOUTON DÉCONNEXION
+======================================== */
 
 .btn-logout {
     display: inline-block;
@@ -353,15 +396,20 @@ a:hover {
     font-size: 14px;
     font-weight: 600;
 
-    transition: background 0.2s ease;
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease;
 }
 
 .btn-logout:hover {
     background: #b91c1c;
-
     color: #ffffff;
 
     text-decoration: none;
+}
+
+.btn-logout:active {
+    transform: scale(0.98);
 }
 
 
@@ -379,55 +427,41 @@ a:hover {
         font-size: 26px;
     }
 
+    .account-page {
+        padding: 20px 15px;
+    }
+
     .account-header {
         padding: 25px 20px;
+    }
+
+    .account-header h1 {
+        font-size: 24px;
     }
 
     .account-content {
         padding: 25px 20px;
     }
 
-    .account-actions {
-        padding: 20px;
-    }
-
     .info-item {
         flex-direction: column;
         align-items: flex-start;
+
         gap: 6px;
     }
 
+    .info-value {
+        text-align: left;
+    }
+
+    .account-actions {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .btn-orders,
     .btn-logout {
         width: 100%;
         text-align: center;
     }
-    .registration-card {
-    max-width: 550px;
-}
-
-.password-help {
-    display: block;
-
-    margin-top: 2px;
-
-    color: #6b7280;
-
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-.form-group ul {
-    list-style: none;
-
-    margin-top: 5px;
-    padding: 0;
-
-    color: #dc2626;
-
-    font-size: 13px;
-}
-
-.form-group input[type="date"] {
-    font-family: inherit;
-}
 }
