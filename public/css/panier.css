@@ -1,0 +1,167 @@
+/* Conteneur principal */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Titre principal */
+.container h1 {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Article du panier */
+.article-panier {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Informations du produit */
+.article-informations {
+    flex: 1;
+}
+
+/* Nom du produit */
+.article-informations h2 {
+    margin: 0 0 15px;
+    font-size: 1.3rem;
+}
+
+.article-informations h2 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.article-informations h2 a:hover {
+    color: #275b72;
+}
+
+/* Paragraphes */
+.article-informations p {
+    margin: 12px 0;
+    color: #555;
+}
+
+/* Prix et totaux */
+.article-informations strong {
+    color: #333;
+}
+
+/* Gestion de la quantité */
+.quantite {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.quantite span {
+    color: #555;
+}
+
+/* Formulaires de quantité */
+.quantite form {
+    margin: 0;
+}
+
+/* Boutons + et - */
+.quantite button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 5px;
+    background-color: #275b72;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.quantite button:hover {
+    background-color: #1b4355;
+}
+
+/* Séparateur entre les articles */
+.panier hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+/* Total du panier */
+.panier-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding: 25px;
+    background-color: #f5f7f8;
+    border-radius: 8px;
+}
+
+.panier-total h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Bouton passer commande */
+.panier-total button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 6px;
+    background-color: #275b72;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.panier-total button:hover {
+    background-color: #1b4355;
+}
+
+/* Panier vide */
+.container > p {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    color: #666;
+}
+
+/* Adaptation aux mobiles */
+@media (max-width: 600px) {
+    .container {
+        margin: 25px auto;
+        padding: 0 15px;
+    }
+
+    .article-panier {
+        padding: 15px;
+    }
+
+    .quantite {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .panier-total {
+        align-items: stretch;
+        padding: 20px;
+    }
+
+    .panier-total h2 {
+        font-size: 1.2rem;
+    }
+
+    .panier-total button {
+        width: 100%;
+    }
+}

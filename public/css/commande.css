@@ -1,0 +1,605 @@
+/* ========================================
+   SUIVI DES COMMANDES
+   ======================================== */
+
+.suivi-commandes {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 45px 20px 70px;
+    color: #263342;
+}
+
+.suivi-entete {
+    margin-bottom: 45px;
+}
+
+.suivi-surtitre {
+    color: #376d91;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.suivi-entete h1 {
+    margin: 10px 0;
+    font-size: clamp(28px, 4vw, 38px);
+}
+
+.suivi-entete > p:last-child {
+    color: #718096;
+    line-height: 1.6;
+}
+
+/* Sections */
+
+.section-commandes {
+    margin-bottom: 50px;
+}
+
+.section-titre {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.section-titre h2 {
+    margin: 0 0 7px;
+    font-size: 23px;
+}
+
+.section-titre p {
+    margin: 0;
+    color: #718096;
+    font-size: 14px;
+}
+
+.compteur-commandes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 50%;
+    background: #e5eff8;
+    color: #285b82;
+    font-weight: 700;
+}
+
+.compteur-passe {
+    background: #e4f4e9;
+    color: #267344;
+}
+
+/* Cartes des commandes en cours */
+
+.commande-carte {
+    margin-bottom: 25px;
+    overflow: hidden;
+    border: 1px solid #e1e7ed;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgb(30 50 70 / 4%);
+}
+
+.commande-entete {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.commande-reference {
+    margin: 0 0 8px;
+    color: #376d91;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.commande-entete h3 {
+    margin: 0 0 8px;
+    font-size: 19px;
+}
+
+.commande-date {
+    margin: 0;
+    color: #788596;
+    font-size: 13px;
+}
+
+.commande-statut {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    border-radius: 20px;
+    background: #edf5fc;
+    color: #285b82;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.statut-point {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4385b5;
+}
+
+/* Contenu de la commande */
+
+.commande-contenu {
+    padding: 22px 24px;
+}
+
+.commande-contenu h4,
+.commande-passee-details h4 {
+    margin: 0 0 18px;
+    font-size: 16px;
+}
+
+.ligne-produit {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid #edf0f4;
+}
+
+.ligne-produit-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 9px;
+    background: #f2f5f8;
+}
+
+.ligne-produit-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ligne-produit-image span {
+    font-size: 27px;
+}
+
+.ligne-produit-infos {
+    flex: 1;
+    min-width: 0;
+}
+
+.ligne-produit-infos strong {
+    display: block;
+    line-height: 1.5;
+}
+
+.ligne-produit-infos p {
+    margin: 6px 0 0;
+    color: #788596;
+    font-size: 13px;
+}
+
+.ligne-produit-prix {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+    text-align: right;
+}
+
+.ligne-produit-prix span {
+    color: #788596;
+    font-size: 12px;
+}
+
+.ligne-produit-prix strong {
+    white-space: nowrap;
+}
+
+/* Adresse et total */
+
+.commande-pied {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    padding: 22px 24px;
+    background: #f8fafc;
+    border-top: 1px solid #edf0f4;
+}
+
+.commande-livraison {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.livraison-icone {
+    font-size: 21px;
+}
+
+.commande-livraison strong,
+.commande-total span {
+    font-size: 13px;
+}
+
+.commande-livraison p {
+    margin: 6px 0 0;
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.commande-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.commande-total span {
+    color: #718096;
+}
+
+.commande-total strong {
+    color: #245b42;
+    font-size: 23px;
+}
+
+/* Historique des états */
+
+.historique-commande {
+    padding: 0 24px;
+    border-top: 1px solid #edf0f4;
+}
+
+.historique-commande summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+}
+
+.historique-commande summary::-webkit-details-marker,
+.commande-passee summary::-webkit-details-marker {
+    display: none;
+}
+
+.historique-commande summary::after {
+    content: "⌄";
+    color: #718096;
+}
+
+.historique-commande:not([open]) summary::after {
+    content: "›";
+}
+
+.historique-compteur {
+    margin-left: auto;
+    color: #718096;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.historique-liste {
+    padding-bottom: 15px;
+}
+
+.historique-etape {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    min-height: 72px;
+}
+
+.historique-repere {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 14px;
+    flex-shrink: 0;
+}
+
+.historique-repere::after {
+    position: absolute;
+    top: 12px;
+    bottom: -10px;
+    width: 2px;
+    background: #dce6ed;
+    content: "";
+}
+
+.historique-etape:last-child .historique-repere::after {
+    display: none;
+}
+
+.historique-repere span {
+    position: relative;
+    z-index: 1;
+    width: 12px;
+    height: 12px;
+    margin-top: 4px;
+    border: 3px solid #c5d9e8;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.historique-etape:first-child .historique-repere span {
+    border-color: #4385b5;
+    background: #4385b5;
+}
+
+.historique-infos {
+    flex: 1;
+}
+
+.historique-infos strong {
+    font-size: 14px;
+}
+
+.historique-infos p {
+    margin: 5px 0;
+    color: #718096;
+    font-size: 13px;
+}
+
+.historique-infos time,
+.historique-passe-ligne time {
+    display: block;
+    margin-top: 5px;
+    color: #8995a4;
+    font-size: 12px;
+}
+
+.historique-actuel {
+    color: #376d91;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.historique-vide {
+    padding-bottom: 18px;
+    color: #718096;
+    font-size: 14px;
+}
+
+/* Commandes passées */
+
+.commande-passee {
+    margin-bottom: 12px;
+    overflow: hidden;
+    border: 1px solid #e1e7ed;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.commande-passee-entete {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.commande-passee-identite {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    flex: 1;
+}
+
+.commande-passee-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #e4f4e9;
+    color: #267344;
+    font-weight: 700;
+}
+
+.commande-passee-identite strong {
+    font-size: 14px;
+}
+
+.commande-passee-identite p {
+    margin: 5px 0 0;
+    color: #788596;
+    font-size: 12px;
+}
+
+.commande-passee-resume {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.statut-termine {
+    color: #267344;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.commande-passee-resume strong {
+    font-size: 17px;
+}
+
+.fleche-details {
+    color: #718096;
+    font-size: 22px;
+    transition: transform 0.2s;
+}
+
+.commande-passee[open] .fleche-details {
+    transform: rotate(180deg);
+}
+
+.commande-passee-details {
+    padding: 22px;
+    border-top: 1px solid #edf0f4;
+}
+
+.ligne-produit-passe:first-of-type {
+    border-top: 0;
+}
+
+.historique-passe {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #edf0f4;
+}
+
+.historique-passe-ligne {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 0;
+    font-size: 13px;
+}
+
+.historique-passe-ligne time {
+    margin: 0;
+    text-align: right;
+}
+
+.adresse-passee {
+    margin: 20px 0 0;
+    color: #718096;
+    font-size: 13px;
+}
+
+/* États vides */
+
+.commandes-vides {
+    padding: 45px 20px;
+    border: 1px dashed #d4dfe8;
+    border-radius: 14px;
+    background: #fbfcfd;
+    text-align: center;
+}
+
+.commandes-vides-icone {
+    font-size: 38px;
+}
+
+.commandes-vides h3 {
+    margin: 15px 0 8px;
+}
+
+.commandes-vides p {
+    color: #718096;
+    font-size: 14px;
+}
+
+.commandes-vides-compact {
+    padding: 30px 20px;
+}
+
+.bouton-lien {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 11px 17px;
+    border-radius: 7px;
+    background: #285b82;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.bouton-lien:hover {
+    background: #1d4666;
+}
+
+/* Adaptation mobile */
+
+@media (max-width: 650px) {
+    .suivi-commandes {
+        padding: 30px 14px 45px;
+    }
+
+    .section-titre h2 {
+        font-size: 19px;
+    }
+
+    .commande-entete {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .commande-contenu {
+        padding: 20px;
+    }
+
+    .ligne-produit {
+        gap: 10px;
+    }
+
+    .ligne-produit-image {
+        width: 55px;
+        height: 55px;
+    }
+
+    .ligne-produit-prix span {
+        max-width: 90px;
+    }
+
+    .commande-pied {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .commande-total {
+        align-items: flex-start;
+        width: 100%;
+        padding-top: 15px;
+        border-top: 1px solid #e1e7ed;
+    }
+
+    .historique-commande {
+        padding: 0 20px;
+    }
+
+    .historique-actuel {
+        font-size: 10px;
+    }
+
+    .commande-passee-entete {
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .commande-passee-details {
+        padding: 15px;
+    }
+
+    .historique-passe-ligne {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .historique-passe-ligne time {
+        text-align: left;
+    }
+}
+

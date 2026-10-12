@@ -1,0 +1,255 @@
+/* ========================================
+   PAGE MON COMPTE
+======================================== */
+
+.account-page {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 50px 20px;
+}
+
+.account-card {
+    width: 100%;
+    max-width: 800px;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   EN-TÊTE DU COMPTE
+======================================== */
+
+.account-header {
+    padding: 30px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.account-header h1 {
+    font-size: 28px;
+
+    margin-bottom: 6px;
+
+    color: #111827;
+}
+
+.account-header p {
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+/* ========================================
+   CONTENU DU COMPTE
+======================================== */
+
+.account-content {
+    padding: 30px;
+}
+
+.account-content h2 {
+    font-size: 19px;
+
+    margin-bottom: 20px;
+
+    color: #111827;
+}
+
+
+/* ========================================
+   INFORMATIONS PERSONNELLES
+======================================== */
+
+.account-info {
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: #6b7280;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.info-value {
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-align: right;
+
+    word-break: break-word;
+}
+
+
+/* ========================================
+   ACTIONS DU COMPTE
+======================================== */
+
+.account-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px 30px;
+
+    background: #f9fafb;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+
+/* ========================================
+   BOUTON MES COMMANDES
+======================================== */
+
+.btn-orders {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    background: #16a34a;
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease;
+}
+
+.btn-orders:hover {
+    background: #15803d;
+    color: #ffffff;
+
+    text-decoration: none;
+}
+
+.btn-orders:active {
+    transform: scale(0.98);
+}
+
+
+/* ========================================
+   BOUTON DÉCONNEXION
+======================================== */
+
+.btn-logout {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    background: #dc2626;
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease;
+}
+
+.btn-logout:hover {
+    background: #b91c1c;
+    color: #ffffff;
+
+    text-decoration: none;
+}
+
+.btn-logout:active {
+    transform: scale(0.98);
+}
+
+
+/* ========================================
+   RESPONSIVE MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .auth-card {
+        padding: 30px 20px;
+    }
+
+    .auth-header h1 {
+        font-size: 26px;
+    }
+
+    .account-page {
+        padding: 20px 15px;
+    }
+
+    .account-header {
+        padding: 25px 20px;
+    }
+
+    .account-header h1 {
+        font-size: 24px;
+    }
+
+    .account-content {
+        padding: 25px 20px;
+    }
+
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 6px;
+    }
+
+    .info-value {
+        text-align: left;
+    }
+
+    .account-actions {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .btn-orders,
+    .btn-logout {
+        width: 100%;
+        text-align: center;
+    }
+}
