@@ -17,24 +17,45 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('prenom', TextType::class)
-            ->add('adresse', TextType::class)
-            ->add('telephone', IntegerType::class)
+            ->add('nom', TextType::class, [
+                'label' => 'Nom',
+            ])
+
+            ->add('prenom', TextType::class, [
+                'label' => 'Prénom',
+            ])
+
+            ->add('adresse', TextType::class, [
+                'label' => 'Adresse',
+            ])
+
+            ->add('telephone', IntegerType::class, [
+                'label' => 'Téléphone',
+            ])
+
             ->add('dateNaissance', DateType::class, [
+                'label' => 'Date de naissance',
                 'widget' => 'single_text',
             ])
-            ->add('email', EmailType::class)
+
+            ->add('email', EmailType::class, [
+                'label' => 'Adresse e-mail',
+            ])
+
             ->add('password', PasswordType::class, [
+                'label' => 'Mot de passe',
                 'required' => true,
                 'constraints' => [
-                    new Assert\NotBlank([
-                        'message' => 'Le mot de passe est obligatoire.',
-                    ]),
-                    new Assert\Regex([
-                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{12,}$/',
-                        'message' => 'Le mot de passe doit contenir au moins 12 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.',
-                    ]),
+
+                    new Assert\NotBlank(
+                        message: 'Le mot de passe est obligatoire.'
+                    ),
+
+                    new Assert\Regex(
+                        pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{12,}$/',
+                        message: 'Le mot de passe doit contenir au moins 12 caractères, une minuscule, une majuscule, un chiffre et un caractère spécial.'
+                    ),
+
                 ],
             ]);
     }

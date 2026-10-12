@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+
+<div class="account-page">
+
+    <div class="account-card">
+
+        <div class="account-header">
+            <div class="account-avatar">
+                {{ user.email|first|upper }}
+            </div>
+
+            <div>
+                <h1>Mon compte</h1>
+                <p>Gérez les informations de votre compte.</p>
+            </div>
+        </div>
+
+        <div class="account-content">
+
+            <h2>Informations du compte</h2>
+
+            <div class="account-info">
+
+                <div class="info-item">
+                    <span class="info-label">
+                        Adresse e-mail
+                    </span>
+
+                    <span class="info-value">
+                        {{ user.email }}
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="account-actions">
+            <a
+                href="{{ path('app_logout') }}"
+                class="btn-logout"
+            >
+                Se déconnecter
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

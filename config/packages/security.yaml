@@ -11,30 +11,37 @@ security:
                 property: email
 
     firewalls:
+        # Désactive la sécurité pour les outils de développement
         dev:
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
 
+        # Firewall principal de l'application
         main:
             lazy: true
+
+            # Provider utilisé pour récupérer les utilisateurs
             provider: app_user_provider
 
-            # Connexion avec un formulaire
+            # Connexion avec le formulaire
             form_login:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
+                username_parameter: _username
+                password_parameter: _password
 
             # Déconnexion
             logout:
                 path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
+                target: app_login
 
     # Gestion des accès
     access_control:
+        # Exemple :
+        # - { path: ^/account, roles: ROLE_USER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+
 
 when@test:
     security:

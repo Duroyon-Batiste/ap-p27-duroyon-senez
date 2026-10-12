@@ -1,3 +1,433 @@
+/* ========================================
+   RESET
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 body {
-    background-color: skyblue;
+    min-height: 100vh;
+    background: #f4f6f9;
+    color: #1f2937;
+}
+
+a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* ========================================
+   PAGE DE CONNEXION
+======================================== */
+
+.auth-page {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 430px;
+
+    background: #ffffff;
+
+    padding: 40px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.auth-header h1 {
+    font-size: 30px;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.auth-header p {
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+/* ========================================
+   FORMULAIRE
+======================================== */
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #374151;
+}
+
+.form-group input {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    font-size: 15px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #9ca3af;
+}
+
+.form-group input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+
+/* ========================================
+   BOUTON PRINCIPAL
+======================================== */
+
+.btn-primary {
+    width: 100%;
+
+    padding: 13px 20px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+
+/* ========================================
+   ERREURS
+======================================== */
+
+.alert-error {
+    padding: 12px 14px;
+
+    margin-bottom: 20px;
+
+    background: #fef2f2;
+    color: #b91c1c;
+
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   LIEN INSCRIPTION
+======================================== */
+
+.auth-footer {
+    text-align: center;
+
+    margin-top: 25px;
+    padding-top: 25px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.auth-footer p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.auth-footer a {
+    font-weight: 600;
+}
+
+
+/* ========================================
+   PAGE MON COMPTE
+======================================== */
+
+.account-page {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 20px;
+}
+
+.account-card {
+    width: 100%;
+    max-width: 650px;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+
+    overflow: hidden;
+}
+
+.account-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 30px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.account-avatar {
+    width: 60px;
+    height: 60px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    border-radius: 50%;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.account-header h1 {
+    font-size: 26px;
+
+    margin-bottom: 5px;
+
+    color: #111827;
+}
+
+.account-header p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* ========================================
+   INFORMATIONS DU COMPTE
+======================================== */
+
+.account-content {
+    padding: 30px;
+}
+
+.account-content h2 {
+    font-size: 18px;
+
+    margin-bottom: 20px;
+
+    color: #111827;
+}
+
+.account-info {
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 18px;
+}
+
+.info-label {
+    color: #6b7280;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.info-value {
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+/* ========================================
+   ACTIONS DU COMPTE
+======================================== */
+
+.account-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    padding: 20px 30px;
+
+    background: #f9fafb;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn-logout {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    background: #dc2626;
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: background 0.2s ease;
+}
+
+.btn-logout:hover {
+    background: #b91c1c;
+
+    color: #ffffff;
+
+    text-decoration: none;
+}
+
+
+/* ========================================
+   RESPONSIVE MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .auth-card {
+        padding: 30px 20px;
+    }
+
+    .auth-header h1 {
+        font-size: 26px;
+    }
+
+    .account-header {
+        padding: 25px 20px;
+    }
+
+    .account-content {
+        padding: 25px 20px;
+    }
+
+    .account-actions {
+        padding: 20px;
+    }
+
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .btn-logout {
+        width: 100%;
+        text-align: center;
+    }
+    .registration-card {
+    max-width: 550px;
+}
+
+.password-help {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #6b7280;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.form-group ul {
+    list-style: none;
+
+    margin-top: 5px;
+    padding: 0;
+
+    color: #dc2626;
+
+    font-size: 13px;
+}
+
+.form-group input[type="date"] {
+    font-family: inherit;
+}
 }
