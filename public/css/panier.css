@@ -1,167 +1,501 @@
-/* Conteneur principal */
-.container {
-    max-width: 1000px;
+
+/* ==============================
+   PAGE PANIER
+============================== */
+
+.panier-page {
+    max-width: 1250px;
     margin: 40px auto;
-    padding: 0 20px;
 }
 
-/* Titre principal */
-.container h1 {
+.panier-page > h1 {
     margin-bottom: 30px;
+    color: #172b4d;
     font-size: 2rem;
-    color: #333;
 }
 
-/* Article du panier */
+
+/* ==============================
+   MESSAGES
+============================== */
+
+.panier-message {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 9px;
+}
+
+.panier-message.erreur {
+    background: #fde8e8;
+    color: #a52828;
+}
+
+.panier-message.succes {
+    background: #e4f5e9;
+    color: #247342;
+}
+
+
+/* ==============================
+   DISPOSITION PRINCIPALE
+============================== */
+
+.panier-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
+    align-items: start;
+    gap: 30px;
+}
+
+.panier-articles,
+.validation-commande {
+    background: #ffffff;
+    border: 1px solid #e8edf2;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 4px 18px rgba(20, 40, 60, 0.04);
+}
+
+
+/* ==============================
+   TITRES
+============================== */
+
+.panier-section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.panier-section-title h2,
+.validation-commande > h2 {
+    margin: 0;
+    color: #172b4d;
+    font-size: 1.35rem;
+}
+
+.panier-section-title span {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+
+/* ==============================
+   ARTICLES
+============================== */
+
 .article-panier {
     display: flex;
     align-items: center;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid #edf0f4;
 }
 
-/* Informations du produit */
+.article-image {
+    width: 105px;
+    height: 105px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #f2f4f7;
+}
+
+.article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #8b96a6;
+    font-size: 0.75rem;
+}
+
 .article-informations {
     flex: 1;
+    min-width: 0;
 }
 
-/* Nom du produit */
-.article-informations h2 {
-    margin: 0 0 15px;
-    font-size: 1.3rem;
+.article-informations h3 {
+    margin: 0 0 8px;
+    font-size: 1rem;
 }
 
-.article-informations h2 a {
-    color: #333;
+.article-informations h3 a {
+    color: #172b4d;
     text-decoration: none;
 }
 
-.article-informations h2 a:hover {
-    color: #275b72;
+.article-informations h3 a:hover {
+    color: #2457d6;
 }
 
-/* Paragraphes */
-.article-informations p {
-    margin: 12px 0;
-    color: #555;
+.article-prix-unitaire {
+    margin: 0 0 12px;
+    color: #718096;
+    font-size: 0.9rem;
 }
 
-/* Prix et totaux */
-.article-informations strong {
-    color: #333;
+.article-prix-total {
+    color: #172b4d;
+    white-space: nowrap;
 }
 
-/* Gestion de la quantité */
+
+/* ==============================
+   QUANTITÉS
+============================== */
+
 .quantite {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin: 15px 0;
+    gap: 10px;
 }
 
 .quantite span {
-    color: #555;
+    color: #526176;
+    font-size: 0.9rem;
 }
 
-/* Formulaires de quantité */
 .quantite form {
     margin: 0;
 }
 
-/* Boutons + et - */
 .quantite button {
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 5px;
-    background-color: #275b72;
-    color: white;
-    font-size: 1.2rem;
+    width: 27px;
+    height: 27px;
+    border: 1px solid #dce3ec;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #2457d6;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
 .quantite button:hover {
-    background-color: #1b4355;
+    background: #edf2ff;
 }
 
-/* Séparateur entre les articles */
-.panier hr {
-    margin: 20px 0;
-    border: none;
-    border-top: 1px solid #ddd;
+
+/* ==============================
+   LIENS
+============================== */
+
+.lien-retour {
+    display: inline-block;
+    margin-top: 22px;
+    color: #2457d6;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-/* Total du panier */
-.panier-total {
+.lien-retour:hover {
+    text-decoration: underline;
+}
+
+
+/* ==============================
+   VALIDATION
+============================== */
+
+.validation-commande {
+    position: sticky;
+    top: 20px;
+}
+
+.validation-commande > h2 {
+    margin-bottom: 25px;
+}
+
+.livraison-section h3,
+.recapitulatif h3 {
+    margin: 0 0 15px;
+    color: #172b4d;
+    font-size: 1.05rem;
+}
+
+
+/* ==============================
+   CHOIX LIVRAISON
+============================== */
+
+.livraison-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 15px;
-    margin-top: 30px;
-    padding: 25px;
-    background-color: #f5f7f8;
-    border-radius: 8px;
+    gap: 12px;
 }
 
-.panier-total h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: #333;
-}
-
-/* Bouton passer commande */
-.panier-total button {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 6px;
-    background-color: #275b72;
-    color: white;
-    font-size: 1rem;
+.choix-livraison {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid #dce3ec;
+    border-radius: 9px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: border-color 0.2s, background 0.2s;
 }
 
-.panier-total button:hover {
-    background-color: #1b4355;
+.choix-livraison:has(input:checked) {
+    border-color: #2457d6;
+    background: #f1f5ff;
 }
 
-/* Panier vide */
-.container > p {
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 6px;
-    color: #666;
+.choix-livraison input {
+    accent-color: #2457d6;
+    width: 17px;
+    height: 17px;
 }
 
-/* Adaptation aux mobiles */
-@media (max-width: 600px) {
-    .container {
+.choix-livraison-contenu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.choix-livraison-icone {
+    font-size: 1.5rem;
+}
+
+.choix-livraison-contenu strong,
+.choix-livraison-contenu small {
+    display: block;
+}
+
+.choix-livraison-contenu strong {
+    color: #172b4d;
+}
+
+.choix-livraison-contenu small {
+    margin-top: 4px;
+    color: #718096;
+    font-size: 0.8rem;
+}
+
+
+/* ==============================
+   INFORMATIONS LIVRAISON
+============================== */
+
+.livraison-details {
+    margin-top: 20px;
+    padding: 17px;
+    background: #f7f9fc;
+    border-radius: 9px;
+    animation: apparition 0.2s ease;
+}
+
+.livraison-details[hidden] {
+    display: none;
+}
+
+.livraison-details label {
+    display: block;
+    margin-bottom: 9px;
+    color: #172b4d;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.livraison-details textarea,
+.livraison-details select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #dce3ec;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #172b4d;
+    font-family: inherit;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+.livraison-details textarea:focus,
+.livraison-details select:focus {
+    outline: none;
+    border-color: #2457d6;
+}
+
+
+/* ==============================
+   RÉCAPITULATIF
+============================== */
+
+.recapitulatif {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e8edf2;
+}
+
+.recapitulatif h3 {
+    margin-bottom: 18px;
+}
+
+.ligne-recap,
+.ligne-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: #526176;
+    font-size: 0.95rem;
+}
+
+.ligne-recap strong {
+    color: #172b4d;
+}
+
+.ligne-total {
+    padding-top: 17px;
+    margin-top: 17px;
+    border-top: 1px solid #e8edf2;
+    color: #172b4d;
+    font-size: 1.05rem;
+}
+
+.ligne-total strong {
+    color: #2457d6;
+    font-size: 1.4rem;
+}
+
+
+/* ==============================
+   BOUTON COMMANDER
+============================== */
+
+.btn-commander {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 9px;
+    background: #2457d6;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-commander:hover {
+    background: #1945b5;
+    transform: translateY(-1px);
+}
+
+.commande-information {
+    margin: 12px 0 0;
+    color: #8994a3;
+    text-align: center;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+
+/* ==============================
+   PANIER VIDE
+============================== */
+
+.panier-vide {
+    padding: 65px 20px;
+    border: 1px solid #e8edf2;
+    border-radius: 14px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.panier-vide-icon {
+    font-size: 3rem;
+}
+
+.panier-vide h2 {
+    margin: 18px 0 8px;
+    color: #172b4d;
+}
+
+.panier-vide p {
+    color: #718096;
+}
+
+.btn-continuer {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: #2457d6;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+/* ==============================
+   ANIMATION
+============================== */
+
+@keyframes apparition {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 850px) {
+
+    .panier-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .validation-commande {
+        position: static;
+    }
+
+}
+
+@media (max-width: 520px) {
+
+    .panier-page {
         margin: 25px auto;
-        padding: 0 15px;
+    }
+
+    .panier-articles,
+    .validation-commande {
+        padding: 17px;
     }
 
     .article-panier {
-        padding: 15px;
-    }
-
-    .quantite {
-        gap: 8px;
+        gap: 12px;
         flex-wrap: wrap;
     }
 
-    .panier-total {
-        align-items: stretch;
-        padding: 20px;
+    .article-image {
+        width: 75px;
+        height: 75px;
     }
 
-    .panier-total h2 {
-        font-size: 1.2rem;
-    }
-
-    .panier-total button {
+    .article-prix-total {
         width: 100%;
+        text-align: right;
     }
+
+    .article-informations {
+        width: calc(100% - 90px);
+    }
+
 }

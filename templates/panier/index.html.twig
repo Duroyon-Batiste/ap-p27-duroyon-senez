@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}
@@ -5,96 +6,347 @@
 {% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/panier.css') }}">
 {% endblock %}
 
 {% block body %}
 
-<div class="container">
+<div class="container panier-page">
 
     <h1>Mon panier</h1>
 
+    {% for message in app.flashes('error') %}
+        <div class="panier-message erreur">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('success') %}
+        <div class="panier-message succes">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     {% if paniers is empty %}
 
-        <p>Votre panier est vide.</p>
+        <div class="panier-vide">
+            <span class="panier-vide-icon">🛒</span>
+            <h2>Votre panier est vide</h2>
+            <p>Découvrez nos produits et ajoutez vos articles préférés.</p>
+
+            <a href="{{ path('app_accueil') }}" class="btn-continuer">
+                Découvrir nos produits
+            </a>
+        </div>
 
     {% else %}
 
-        <div class="panier">
+        <div class="panier-layout">
 
-            {% for panier in paniers %}
+            {# COLONNE GAUCHE : CONTENU DU PANIER #}
 
-                {% set produit = panier.produit %}
+            <section class="panier-articles">
 
-                <div class="article-panier">
+                <div class="panier-section-title">
+                    <h2>Vos articles</h2>
+                    <span>{{ paniers|length }} article(s)</span>
+                </div>
 
-                    <div class="article-informations">
+                {% for panier in paniers %}
 
-                        <h2>
-                            <a href="{{ path('app_produit', {'id': produit.id}) }}">
-                                {{ produit.description }}
-                            </a>
-                        </h2>
+                    {% set produit = panier.produit %}
 
-                        <p>
-                            Prix unitaire :
-                            <strong>{{ produit.prix }} €</strong>
-                        </p>
+                    {% if produit %}
 
-                        <div class="quantite">
+                        <article class="article-panier">
 
-                            <span>Quantité :</span>
+                            <div class="article-image">
 
-                            <form method="post" action="{{ path('app_panier_remove', {'id': panier.id}) }}">
-                                <button type="submit">
-                                    −
-                                </button>
-                            </form>
+                                {% if produit.photos|length > 0 %}
+                                    <img
+                                        src="{{ asset(produit.photos|first.chemin) }}"
+                                        alt="{{ produit.description }}"
+                                    >
+                                {% else %}
+                                    <div class="image-placeholder">
+                                        <span>Pas d'image</span>
+                                    </div>
+                                {% endif %}
 
-                            <strong>
-                                {{ panier.qte }}
-                            </strong>
+                            </div>
 
-                            <form method="post" action="{{ path('app_panier_add', {'id': panier.id}) }}">
-                                <button type="submit">
-                                    +
-                                </button>
-                            </form>
+                            <div class="article-informations">
 
-                        </div>
+                                <h3>
+                                    <a href="{{ path('app_produit', {'id': produit.id}) }}">
+                                        {{ produit.description }}
+                                    </a>
+                                </h3>
 
-                        <p>
-                            Total :
-                            <strong>
-                                {{ (panier.qte * produit.prix)|number_format(2, ',', ' ') }} €
-                            </strong>
-                        </p>
+                                <p class="article-prix-unitaire">
+                                    {{ produit.prix|number_format(2, ',', ' ') }} € / unité
+                                </p>
+
+                                <div class="quantite">
+
+                                    <span>Quantité :</span>
+
+                                    <form method="post"
+                                          action="{{ path('app_panier_remove', {'id': panier.id}) }}">
+                                        <button type="submit" aria-label="Diminuer la quantité">
+                                            −
+                                        </button>
+                                    </form>
+
+                                    <strong>{{ panier.qte }}</strong>
+
+                                    <form method="post"
+                                          action="{{ path('app_panier_add', {'id': panier.id}) }}">
+                                        <button type="submit" aria-label="Augmenter la quantité">
+                                            +
+                                        </button>
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                            <div class="article-prix-total">
+
+                                <strong>
+                                    {{ (panier.qte * produit.prix)|number_format(2, ',', ' ') }} €
+                                </strong>
+
+                            </div>
+
+                        </article>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                <a href="{{ path('app_accueil') }}" class="lien-retour">
+                    ← Continuer mes achats
+                </a>
+
+            </section>
+
+
+            {# COLONNE DROITE : VALIDATION DE LA COMMANDE #}
+
+            <aside class="validation-commande">
+
+                <h2>Votre commande</h2>
+
+                <form method="post" action="{{ path('app_panier_commander') }}" id="form-commande">
+
+                    <input
+                        type="hidden"
+                        name="_token"
+                        value="{{ csrf_token('commander') }}"
+                    >
+
+                    {# MODE DE LIVRAISON #}
+
+                    <div class="livraison-section">
+
+                        <h3>Mode de livraison</h3>
+
+                        <label class="choix-livraison">
+                            <input
+                                type="radio"
+                                name="modeLivraison"
+                                value="domicile"
+                                checked
+                            >
+
+                            <span class="choix-livraison-contenu">
+                                <span class="choix-livraison-icone">🚚</span>
+                                <span>
+                                    <strong>À domicile</strong>
+                                    <small>Livraison à votre adresse</small>
+                                </span>
+                            </span>
+                        </label>
+
+                        <label class="choix-livraison">
+                            <input
+                                type="radio"
+                                name="modeLivraison"
+                                value="magasin"
+                            >
+
+                            <span class="choix-livraison-contenu">
+                                <span class="choix-livraison-icone">🏬</span>
+                                <span>
+                                    <strong>Retrait en magasin</strong>
+                                    <small>Retirez votre commande en magasin</small>
+                                </span>
+                            </span>
+                        </label>
 
                     </div>
 
-                </div>
 
-                <hr>
+                    {# INFORMATIONS DE LIVRAISON #}
 
-            {% endfor %}
+                    <div class="livraison-details" id="adresse-container">
 
-            <div class="panier-total">
+                        <label for="adresseLivraison">
+                            Adresse de livraison
+                        </label>
 
-                <h2>
-                    Total du panier :
-                    {{ total|number_format(2, ',', ' ') }} €
-                </h2>
+                        <textarea
+                            name="adresseLivraison"
+                            id="adresseLivraison"
+                            placeholder="Numéro, rue, code postal, ville..."
+                            rows="3"
+                            required
+                        ></textarea>
 
-                <button type="button">
-                    Passer la commande
-                </button>
+                    </div>
 
-            </div>
+                    <div class="livraison-details" id="magasin-container" hidden>
+
+                        <label for="magasin">
+                            Magasin de retrait
+                        </label>
+
+                        <select name="magasin" id="magasin">
+
+                            <option value="">Choisir un magasin</option>
+
+                            {% for magasin in magasins %}
+                                <option value="{{ magasin.id }}">
+                                    {{ magasin.ville }}
+                                </option>
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    {# RÉCAPITULATIF DES PRIX #}
+
+                    <div class="recapitulatif">
+
+                        <h3>Récapitulatif</h3>
+
+                        <div class="ligne-recap">
+                            <span>Sous-total</span>
+                            <strong>
+                                <span id="sous-total"
+                                      data-value="{{ total }}">
+                                    {{ total|number_format(2, ',', ' ') }}
+                                </span> €
+                            </strong>
+                        </div>
+
+                        <div class="ligne-recap" id="ligne-livraison">
+                            <span>Frais de livraison</span>
+                            <strong>
+                                <span id="frais-livraison">10,00</span> €
+                            </strong>
+                        </div>
+
+                        <div class="ligne-total">
+                            <span>Total</span>
+                            <strong>
+                                <span id="total-commande">{{ (total + 10)|number_format(2, ',', ' ') }}</span> €
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit" class="btn-commander">
+                        Commander
+                    </button>
+
+                    <p class="commande-information">
+                        La commande sera enregistrée et transmise au service client.
+                    </p>
+
+                </form>
+
+            </aside>
 
         </div>
 
     {% endif %}
 
 </div>
+
+
+{# GESTION DYNAMIQUE DU MODE DE LIVRAISON #}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const choixLivraison = document.querySelectorAll('input[name="modeLivraison"]');
+
+    const adresseContainer = document.getElementById('adresse-container');
+    const magasinContainer = document.getElementById('magasin-container');
+
+    const adresseInput = document.getElementById('adresseLivraison');
+    const magasinInput = document.getElementById('magasin');
+
+    const ligneLivraison = document.getElementById('ligne-livraison');
+    const fraisLivraison = document.getElementById('frais-livraison');
+
+    const sousTotalElement = document.getElementById('sous-total');
+    const totalElement = document.getElementById('total-commande');
+
+    const sousTotal = parseFloat(sousTotalElement.dataset.value);
+
+    function actualiserLivraison() {
+
+        const mode = document.querySelector(
+            'input[name="modeLivraison"]:checked'
+        ).value;
+
+        if (mode === 'domicile') {
+
+            adresseContainer.hidden = false;
+            magasinContainer.hidden = true;
+
+            adresseInput.required = true;
+            magasinInput.required = false;
+
+            magasinInput.value = '';
+
+            fraisLivraison.textContent = '10,00';
+            ligneLivraison.hidden = false;
+
+            totalElement.textContent = (sousTotal + 10).toFixed(2).replace('.', ',');
+
+        } else {
+
+            adresseContainer.hidden = true;
+            magasinContainer.hidden = false;
+
+            adresseInput.required = false;
+            adresseInput.value = '';
+
+            magasinInput.required = true;
+
+            fraisLivraison.textContent = '0,00';
+            ligneLivraison.hidden = true;
+
+            totalElement.textContent = sousTotal.toFixed(2).replace('.', ',');
+
+        }
+    }
+
+    choixLivraison.forEach(function (choix) {
+        choix.addEventListener('change', actualiserLivraison);
+    });
+
+    actualiserLivraison();
+
+});
+</script>
 
 {% endblock %}
