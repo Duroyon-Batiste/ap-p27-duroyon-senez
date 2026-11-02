@@ -63,6 +63,18 @@ class Produit
     #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'produit')]
     private Collection $paniers;
 
+    #[ORM\Column(length: 100)]
+    private ?string $marque = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $couleur = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $taille = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $style = null;
+
     public function __construct()
     {
         $this->photos = new ArrayCollection();
@@ -283,6 +295,54 @@ class Produit
                 $panier->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMarque(): ?string
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(string $marque): static
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(?string $couleur): static
+    {
+        $this->couleur = $couleur;
+
+        return $this;
+    }
+
+    public function getTaille(): ?string
+    {
+        return $this->taille;
+    }
+
+    public function setTaille(string $taille): static
+    {
+        $this->taille = $taille;
+
+        return $this;
+    }
+
+    public function getStyle(): ?string
+    {
+        return $this->style;
+    }
+
+    public function setStyle(?string $style): static
+    {
+        $this->style = $style;
 
         return $this;
     }

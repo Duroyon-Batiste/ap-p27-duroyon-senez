@@ -25,7 +25,7 @@ class Magasin
     /**
      * @var Collection<int, StockMagasin>
      */
-    #[ORM\OneToMany(targetEntity: StockMagasin::class, mappedBy: 'Magasin')]
+    #[ORM\OneToMany(targetEntity: StockMagasin::class, mappedBy: 'magasin')]
     private Collection $stockMagasins;
 
     /**

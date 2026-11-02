@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommandeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
@@ -39,6 +40,12 @@ class Commande
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?Magasin $magasin = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $modeLivraison = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $fraisLivraison = '0.00';
 
     public function __construct()
     {
@@ -155,6 +162,30 @@ class Commande
     public function setMagasin(?Magasin $magasin): static
     {
         $this->magasin = $magasin;
+
+        return $this;
+    }
+
+    public function getModeLivraison(): ?string
+    {
+        return $this->modeLivraison;
+    }
+
+    public function setModeLivraison(?string $modeLivraison): static
+    {
+        $this->modeLivraison = $modeLivraison;
+
+        return $this;
+    }
+
+    public function getFraisLivraison(): ?string
+    {
+        return $this->fraisLivraison;
+    }
+
+    public function setFraisLivraison(string $fraisLivraison): static
+    {
+        $this->fraisLivraison = $fraisLivraison;
 
         return $this;
     }
