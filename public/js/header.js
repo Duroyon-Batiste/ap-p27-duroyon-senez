@@ -1,5 +1,6 @@
-// Afficher le menu utilisateur au clic sur la photo de profil
-document.addEventListener('DOMContentLoaded', () => {
+
+// Initialisation du menu utilisateur
+function initUserMenu() {
     const toggle = document.getElementById('userMenuToggle');
     const dropdown = document.getElementById('userDropdown');
 
@@ -7,8 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Éviter d'ajouter plusieurs fois les événements
+    if (toggle.dataset.initialized === 'true') {
+        return;
+    }
+
+    toggle.dataset.initialized = 'true';
+
     // Ouvrir ou fermer le menu au clic
-    toggle.addEventListener('click', () => {
+    toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+
         const isOpen = !dropdown.hidden;
 
         dropdown.hidden = isOpen;
@@ -24,11 +34,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Fermer le menu avec la touche Échap
+    // Fermer le menu avec Échap
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             dropdown.hidden = true;
             toggle.setAttribute('aria-expanded', 'false');
         }
     });
-});
+}
+
+// Chargement classique
+document.addEventListener('DOMContentLoaded', initUserMenu);
+
+// Navigation avec Symfony UX Turbo
+document.addEventListener('turbo:load', initUserMenu);
