@@ -1,0 +1,324 @@
+
+/* ==========================================
+   PAGE DE RECHERCHE
+========================================== */
+
+.page-recherche {
+    max-width: 1450px;
+    margin: 40px auto;
+    padding: 0 25px;
+    color: #292929;
+}
+
+.page-recherche h1 {
+    margin-bottom: 30px;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.page-recherche h1 span {
+    color: #e87924;
+}
+
+/* ==========================================
+   ORGANISATION GENERALE
+========================================== */
+
+.recherche-layout {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: 35px;
+    align-items: start;
+}
+
+/* ==========================================
+   FILTRES A GAUCHE
+========================================== */
+
+.recherche-filtres {
+    padding: 22px;
+    background: #fff;
+    border: 1px solid #e5e1dc;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+.recherche-filtres h2 {
+    margin: 0 0 22px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    border-bottom: 1px solid #e9e5e0;
+}
+
+.recherche-filtres h2 span {
+    color: #e87924;
+}
+
+.recherche-groupe {
+    margin-bottom: 20px;
+}
+
+.recherche-groupe label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.recherche-groupe input,
+.recherche-groupe select {
+    width: 100%;
+    min-height: 40px;
+    padding: 9px 11px;
+    color: #333;
+    background: #fff;
+    border: 1px solid #d8d3cd;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.recherche-groupe input:focus,
+.recherche-groupe select:focus {
+    border-color: #e87924;
+    box-shadow: 0 0 0 3px rgba(232, 121, 36, 0.12);
+}
+
+/* Prix */
+
+.recherche-prix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* Boutons des filtres */
+
+.recherche-boutons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.recherche-boutons button,
+.recherche-boutons a {
+    display: block;
+    width: 100%;
+    padding: 11px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.recherche-boutons button {
+    color: #fff;
+    background: #e87924;
+    border: 1px solid #e87924;
+    cursor: pointer;
+}
+
+.recherche-boutons button:hover {
+    background: #cb6418;
+    border-color: #cb6418;
+    transform: translateY(-1px);
+}
+
+.recherche-boutons a {
+    color: #555;
+    background: #fff;
+    border: 1px solid #d8d3cd;
+}
+
+.recherche-boutons a:hover {
+    background: #f5f2ee;
+}
+
+/* ==========================================
+   RESULTATS
+========================================== */
+
+.recherche-resultats {
+    min-width: 0;
+}
+
+.recherche-resultats-entete {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e5e1dc;
+}
+
+.recherche-resultats-entete h2 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.recherche-resultats-nombre {
+    color: #777;
+    font-size: 14px;
+}
+
+/* ==========================================
+   GRILLE DES PRODUITS
+========================================== */
+
+.recherche-produits {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+/* ==========================================
+   CARTE PRODUIT
+========================================== */
+
+.recherche-produit-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e5e1dc;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recherche-produit-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09);
+}
+
+/* Image */
+
+.recherche-produit-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 190px;
+    padding: 15px;
+    background: #f6f5f2;
+}
+
+.recherche-produit-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Informations */
+
+.recherche-produit-informations {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 17px;
+}
+
+.recherche-produit-informations h3 {
+    margin-bottom: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.recherche-produit-marque {
+    margin-bottom: 5px;
+    color: #777;
+    font-size: 14px;
+}
+
+.recherche-produit-sport {
+    margin-bottom: 12px;
+    color: #555;
+    font-size: 14px;
+}
+
+.recherche-produit-prix {
+    margin-top: auto;
+    margin-bottom: 15px;
+    color: #e87924;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+/* Bouton produit */
+
+.recherche-produit-lien {
+    display: block;
+    padding: 10px;
+    color: #e87924;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid #e87924;
+    border-radius: 6px;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.recherche-produit-lien:hover {
+    color: #fff;
+    background: #e87924;
+}
+
+/* Aucun résultat */
+
+.recherche-aucun-resultat {
+    padding: 30px 20px;
+    color: #666;
+    text-align: center;
+    background: #f6f5f2;
+    border: 1px solid #e5e1dc;
+    border-radius: 10px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media screen and (max-width: 1100px) {
+    .recherche-produits {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .recherche-layout {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .recherche-filtres {
+        width: 100%;
+    }
+
+    .recherche-produits {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .page-recherche {
+        padding: 0 15px;
+    }
+
+    .recherche-produits {
+        grid-template-columns: 1fr;
+    }
+
+    .recherche-resultats-entete {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .recherche-prix {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,340 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Recherche de produits
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/recherche.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div class="page-recherche">
+
+    <h1>Recherche de <span>produits</span></h1>
+
+    <div class="recherche-layout">
+
+        {# ==========================================
+           FILTRES DE RECHERCHE
+        ========================================== #}
+
+        <aside class="recherche-filtres">
+
+            <h2>Filtrer les <span>produits</span></h2>
+
+            <form
+                method="get"
+                action="{{ path('app_recherche') }}"
+            >
+
+                {# NOM OU REFERENCE #}
+                <div class="recherche-groupe">
+
+                    <label for="q">
+                        Nom ou référence
+                    </label>
+
+                    <input
+                        type="text"
+                        id="q"
+                        name="q"
+                        placeholder="Rechercher..."
+                        value="{{ criteres.q }}"
+                    >
+
+                </div>
+
+                {# SPORT #}
+                <div class="recherche-groupe">
+
+                    <label for="sport">
+                        Sport
+                    </label>
+
+                    <select name="sport" id="sport">
+
+                        <option value="">
+                            Tous les sports
+                        </option>
+
+                        {% for sport in sports %}
+                            <option
+                                value="{{ sport.id }}"
+                                {% if criteres.sport == sport.id ~ '' %}selected{% endif %}
+                            >
+                                {{ sport.nom }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                {# FOURNISSEUR #}
+                <div class="recherche-groupe">
+
+                    <label for="fournisseur">
+                        Fournisseur
+                    </label>
+
+                    <select name="fournisseur" id="fournisseur">
+
+                        <option value="">
+                            Tous les fournisseurs
+                        </option>
+
+                        {% for fournisseur in fournisseurs %}
+                            <option
+                                value="{{ fournisseur.id }}"
+                                {% if criteres.fournisseur == fournisseur.id ~ '' %}selected{% endif %}
+                            >
+                                {{ fournisseur.nom }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                {# MARQUE #}
+                <div class="recherche-groupe">
+
+                    <label for="marque">
+                        Marque
+                    </label>
+
+                    <select name="marque" id="marque">
+
+                        <option value="">
+                            Toutes les marques
+                        </option>
+
+                        {% for marque in marques %}
+                            <option
+                                value="{{ marque }}"
+                                {% if criteres.marque == marque %}selected{% endif %}
+                            >
+                                {{ marque }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                {# COULEUR #}
+                <div class="recherche-groupe">
+
+                    <label for="couleur">
+                        Couleur
+                    </label>
+
+                    <select name="couleur" id="couleur">
+
+                        <option value="">
+                            Toutes les couleurs
+                        </option>
+
+                        {% for couleur in couleurs %}
+                            <option
+                                value="{{ couleur }}"
+                                {% if criteres.couleur == couleur %}selected{% endif %}
+                            >
+                                {{ couleur }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                {# TAILLE #}
+                <div class="recherche-groupe">
+
+                    <label for="taille">
+                        Taille
+                    </label>
+
+                    <select name="taille" id="taille">
+
+                        <option value="">
+                            Toutes les tailles
+                        </option>
+
+                        {% for taille in tailles %}
+                            <option
+                                value="{{ taille }}"
+                                {% if criteres.taille == taille %}selected{% endif %}
+                            >
+                                {{ taille }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                {# STYLE #}
+                <div class="recherche-groupe">
+
+                    <label for="style">
+                        Style
+                    </label>
+
+                    <select name="style" id="style">
+
+                        <option value="">
+                            Tous les styles
+                        </option>
+
+                        {% for style in styles %}
+                            <option
+                                value="{{ style }}"
+                                {% if criteres.style == style %}selected{% endif %}
+                            >
+                                {{ style|capitalize }}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                {# PRIX #}
+                <div class="recherche-groupe">
+
+                    <label>
+                        Fourchette de prix (€)
+                    </label>
+
+                    <div class="recherche-prix">
+
+                        <input
+                            type="number"
+                            name="prixMin"
+                            min="0"
+                            step="0.01"
+                            placeholder="Minimum"
+                            value="{{ criteres.prixMin }}"
+                        >
+
+                        <input
+                            type="number"
+                            name="prixMax"
+                            min="0"
+                            step="0.01"
+                            placeholder="Maximum"
+                            value="{{ criteres.prixMax }}"
+                        >
+
+                    </div>
+
+                </div>
+
+                {# BOUTONS #}
+                <div class="recherche-boutons">
+
+                    <button type="submit">
+                        Appliquer les filtres
+                    </button>
+
+                    <a href="{{ path('app_recherche') }}">
+                        Réinitialiser
+                    </a>
+
+                </div>
+
+            </form>
+
+        </aside>
+
+        {# ==========================================
+           RESULTATS DE RECHERCHE
+        ========================================== #}
+
+        <section class="recherche-resultats">
+
+            <div class="recherche-resultats-entete">
+
+                <h2>Nos produits</h2>
+
+                <span class="recherche-resultats-nombre">
+                    {{ produits|length }} produit(s) trouvé(s)
+                </span>
+
+            </div>
+
+            {% if produits is not empty %}
+
+                <div class="recherche-produits">
+
+                    {% for produit in produits %}
+
+                        {% set photo = produit.photos|first %}
+
+                        <article class="recherche-produit-card">
+
+                            {# IMAGE #}
+                            <div class="recherche-produit-image">
+
+                                <img
+                                    src="{{ asset(photo ? photo.chemin : 'images/produits/placeholder.jpg') }}"
+                                    alt="{{ produit.description }}"
+                                >
+
+                            </div>
+
+                            {# INFORMATIONS #}
+                            <div class="recherche-produit-informations">
+
+                                <h3>
+                                    {{ produit.description }}
+                                </h3>
+
+                                <p class="recherche-produit-marque">
+                                    {{ produit.marque }}
+                                </p>
+
+                                <p class="recherche-produit-sport">
+                                    {{ produit.sport.nom }}
+                                </p>
+
+                                <p class="recherche-produit-prix">
+                                    {{ produit.prix|number_format(2, ',', ' ') }} €
+                                </p>
+
+                                <a
+                                    href="{{ path('app_produit', {'id': produit.id}) }}"
+                                    class="recherche-produit-lien"
+                                >
+                                    Voir le produit
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="recherche-aucun-resultat">
+                    Aucun produit ne correspond à votre recherche.
+                    Essayez de modifier ou de supprimer certains filtres.
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </div>
+
+</div>
+
+{% endblock %}

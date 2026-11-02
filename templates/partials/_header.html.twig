@@ -1,64 +1,98 @@
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
 {% endblock %}
+
 {% block javascripts %}
     <script src="{{ asset('js/header.js') }}" defer></script>
 {% endblock %}
+
 <header class="site-header">
+
     <div class="header-container">
 
-        <a href="{{ path('app_accueil') }}">
-            ALL4SPORT
+        {# LOGO #}
+        <a href="{{ path('app_accueil') }}" class="site-logo">
+            ALL4<span>SPORT</span>
         </a>
 
+        {# NAVIGATION #}
         <nav class="main-navigation" aria-label="Navigation principale">
-            <a href="{{ path('app_accueil') }}">Accueil</a>
-            <a href="{{ path('app_accueil') }}#produits">Nos produits</a>
+
+            <a href="{{ path('app_accueil') }}">
+                Accueil
+            </a>
+
+            <a href="{{ path('app_accueil') }}#produits">
+                Nos produits
+            </a>
+
+            <a href="{{ path('app_recherche') }}">
+                Recherche
+            </a>
 
             {% if app.user %}
-                <a href="{{ path('app_panier') }}">Mon panier</a>
-                <a href="{{ path('app_suivi_commandes') }}">Mes commandes</a>
+                <a href="{{ path('app_panier') }}">
+                    Mon panier
+                </a>
+
+                <a href="{{ path('app_suivi_commandes') }}">
+                    Mes commandes
+                </a>
             {% endif %}
+
         </nav>
 
+        {# ACTIONS UTILISATEUR #}
         <div class="header-actions">
+
             {% if app.user %}
-                
-            
-            <div class="user-menu">
-                {# Bouton de la photo de profil #}
-                <button
-                    type="button"
-                    class="user-menu-toggle"
-                    id="userMenuToggle"
-                    aria-label="Ouvrir le menu utilisateur"
-                    aria-expanded="false"
-                    aria-controls="userDropdown"
-                >
-                    <img
-                        src="{{ asset('images/user.png') }}"
-                        alt="Profil utilisateur"
-                        class="user-avatar"
+
+                <div class="user-menu">
+
+                    {# BOUTON PROFIL #}
+                    <button
+                        type="button"
+                        class="user-menu-toggle"
+                        id="userMenuToggle"
+                        aria-label="Ouvrir le menu utilisateur"
+                        aria-expanded="false"
+                        aria-controls="userDropdown"
                     >
-                </button>
+                        <img
+                            src="{{ asset('images/user.png') }}"
+                            alt="Profil utilisateur"
+                            class="user-avatar"
+                        >
+                    </button>
 
-                {# Menu déroulant #}
-                <div class="user-dropdown" id="userDropdown" hidden>
-                    <a href="{{ path('app_account') }}">Mon profil</a>
+                    {# MENU DEROULANT #}
+                    <div class="user-dropdown" id="userDropdown" hidden>
 
-                    <hr>
+                        <a href="{{ path('app_account') }}">
+                            Mon profil
+                        </a>
 
-                    <a href="{{ path('app_logout') }}" class="logout-link">
-                        Déconnexion
-                    </a>
+                        <hr>
+
+                        <a href="{{ path('app_logout') }}" class="logout-link">
+                            Déconnexion
+                        </a>
+
+                    </div>
+
                 </div>
-            </div>
+
             {% else %}
+
                 <a href="{{ path('app_login') }}" class="btn-header">
                     Connexion
                 </a>
+
             {% endif %}
+
         </div>
 
     </div>
+
 </header>

@@ -1,76 +1,162 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Accueil
+    Boutique sportive
 {% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/accueil.css') }}">
 {% endblock %}
 
 {% block body %}
 
-<div class="container">
+{# Sous-navigation #}
+<nav class="sport-subnav">
+    <a href="{{ path('app_accueil') }}">Tous les articles</a>
+    <a href="{{ path('app_accueil') }}?style=homme">Homme</a>
+    <a href="{{ path('app_accueil') }}?style=femme">Femme</a>
+    <a href="{{ path('app_accueil') }}?style=enfants">Enfant</a>
+</nav>
 
-    <h1>Nos produits</h1>
+{# Carrousel principal #}
+<section class="hero-carousel">
 
-    {% if produits is empty %}
+    <div class="hero-slide active"
+         style="background-image: url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=1800&q=85')">
 
-        <p>Aucun produit n'est actuellement disponible.</p>
-
-    {% else %}
-
-        <div class="produits">
-
-            {% for produit in produits %}
-
-                <a
-                    href="{{ path('app_produit', {'id': produit.id}) }}"
-                    class="produit-card"
-                >
-
-                    <div class="produit-image">
-
-                        {% if produit.photos|length > 0 %}
-
-                            {% set photo = produit.photos|first %}
-
-                            <img
-                                src="{{ asset(photo.chemin) }}"
-                                alt="{{ produit.description }}"
-                            >
-
-                        {% else %}
-
-                            <div class="produit-image-placeholder">
-                                <span>🛍️</span>
-                                <p>Aucune image disponible</p>
-                            </div>
-
-                        {% endif %}
-
-                    </div>
-
-                    <div class="produit-informations">
-
-                        <h2>
-                            {{ produit.description }}
-                        </h2>
-
-                        <p class="produit-prix">
-                            {{ produit.prix|number_format(2, ',', ' ') }} €
-                        </p>
-
-                    </div>
-
-                </a>
-
-            {% endfor %}
-
+        <div class="hero-content">
+            <span>COLLECTION SPORT</span>
+            <h1>Repousse tes limites.</h1>
+            <p>Découvre notre sélection d'équipements sportifs.</p>
+            <a href="{{ path('app_accueil') }}" class="hero-button">
+                Découvrir la collection
+            </a>
         </div>
 
-    {% endif %}
+    </div>
 
-</div>
+    <div class="hero-slide"
+         style="background-image: url('https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=1800&q=85')">
+
+        <div class="hero-content">
+            <span>RUNNING</span>
+            <h1>Chaque foulée compte.</h1>
+            <p>Prépare-toi à atteindre tes objectifs.</p>
+            <a href="#rayons-sport" class="hero-button">
+                Voir les produits
+            </a>
+        </div>
+
+    </div>
+
+    <div class="hero-slide"
+         style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1800&q=85')">
+
+        <div class="hero-content">
+            <span>FITNESS</span>
+            <h1>À toi de jouer.</h1>
+            <p>Tout l'équipement pour tes entraînements.</p>
+            <a href="#rayons-sport" class="hero-button">
+                Découvrir
+            </a>
+        </div>
+
+    </div>
+
+    <button class="carousel-arrow previous" aria-label="Image précédente">
+        &#10094;
+    </button>
+
+    <button class="carousel-arrow next" aria-label="Image suivante">
+        &#10095;
+    </button>
+
+    <div class="carousel-dots">
+        <button class="active" aria-label="Image 1"></button>
+        <button aria-label="Image 2"></button>
+        <button aria-label="Image 3"></button>
+    </div>
+
+</section>
+
+{# Rayons par sport #}
+<main class="container" id="rayons-sport">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-subtitle">NOTRE SÉLECTION</span>
+            <h1>Explore par sport</h1>
+        </div>
+    </div>
+
+    {% for sport in sports %}
+
+        {% if sport.produits|length > 0 %}
+
+            <section class="sport-section">
+
+                <div class="sport-heading">
+                    <h2>{{ sport.nom }}</h2>
+
+                    <a href="{{ path('app_accueil') }}?sport={{ sport.id }}"
+                       class="voir-tout">
+                        Voir tout →
+                    </a>
+                </div>
+
+                <div class="produits-carousel">
+
+                    {% for produit in sport.produits %}
+
+                        <a href="{{ path('app_produit', {'id': produit.id}) }}"
+                           class="produit-card">
+
+                            <div class="produit-image">
+
+                                {% if produit.photos|length > 0 %}
+
+                                    {% set photo = produit.photos|first %}
+
+                                    <img
+                                        src="{{ asset(photo.chemin) }}"
+                                        alt="{{ produit.description }}"
+                                    >
+
+                                {% else %}
+
+                                    <div class="produit-image-placeholder">
+                                        <span>🛍️</span>
+                                        <p>Aucune image disponible</p>
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                            <div class="produit-informations">
+                                <h3>{{ produit.description }}</h3>
+
+                                <p class="produit-prix">
+                                    {{ produit.prix|number_format(2, ',', ' ') }} €
+                                </p>
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        {% endif %}
+
+    {% endfor %}
+
+</main>
+
+<script src="{{ asset('js/accueil.js') }}" defer></script>
 
 {% endblock %}
